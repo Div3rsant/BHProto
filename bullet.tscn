@@ -19,8 +19,8 @@ radius = 8.0
 
 [node name="bullet" type="KinematicBody2D"]
 position = Vector2( 181.429, 205.997 )
-collision_layer = 2
-collision_mask = 4
+collision_layer = 524288
+collision_mask = 262144
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

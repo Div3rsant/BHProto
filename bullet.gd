@@ -6,7 +6,7 @@ extends KinematicBody2D
 # var b = "text"
 
 var state = "inactive"
-var on_oob = "destroy"
+var on_eol = "destroyed"
 var velocity = 80.0
 var direction = Vector2(0,-1)
 
@@ -18,9 +18,9 @@ func _ready():
 func set_velocity(v : float):
 	velocity = v
 
-func set_active(pos : Vector2, on_oob : String):
+func set_active(pos : Vector2, on_eol : String):
 	self.position = pos
-	self.on_oob = on_oob
+	self.on_eol = on_eol
 	$Sprite.visible = true
 	$CollisionShape2D.disabled = false
 	state = "active"
@@ -28,11 +28,15 @@ func set_active(pos : Vector2, on_oob : String):
 func set_mask(masktype : String):
 	match masktype:
 		"enemy":
-			set_collision_mask_bit(3, false)
-			set_collision_mask_bit(2, true)
-		"player":
-			set_collision_mask_bit(3, true)
+			set_collision_layer_bit(1, true)
+			set_collision_mask_bit(0, true)
+			set_collision_layer_bit(3, false)
 			set_collision_mask_bit(2, false)
+		"player":
+			set_collision_layer_bit(3, true)
+			set_collision_mask_bit(2, true)
+			set_collision_layer_bit(1, false)
+			set_collision_mask_bit(0, false)
 
 
 func set_direction(direction: Vector2):
@@ -46,11 +50,13 @@ func _physics_process(delta):
 		"active":
 			move(delta)
 			if is_oob():
-				state = on_oob
+				state = on_eol
 		"destroyed":
+			print("destroyed")
 			queue_free()
 		"inactive":
-			pass
+			$Sprite.visible = false
+			$CollisionShape2D.disabled = true
 			
 
 func is_oob():
@@ -79,4 +85,4 @@ func move(delta):
 	
 	if coll:
 		print("collided with" + coll.collider.name)
-		set_inactive()
+		state = on_eol

@@ -1,4 +1,4 @@
-extends Sprite
+extends KinematicBody2D
 
 
 # Declare member variables here. Examples:
@@ -8,7 +8,7 @@ extends Sprite
 var d = Vector2(0,-1)
 var moving = false
 var state = {"moving" : "idle", "shooting" : false}
-var speed = 10.0
+var velocity = 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,7 +38,7 @@ func _process_input():
 
 func _physics_process(delta):
 	if state["moving"] != "idle":
-		self.position += speed * get_direction(state["moving"]);
+		move_and_collide(velocity * get_direction(state["moving"]) * delta)
 		
 	if state["shooting"]:
 		$bullet_manager.fire()

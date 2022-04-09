@@ -40,6 +40,7 @@ func fire_bullets():
 	
 	if bullet:
 		bullet.set_active(self.global_position, "inactive")
+		bullet.set_mask("player")
 		bullet.set_velocity(fire_vel)
 		$fire_rate.start()
 	
