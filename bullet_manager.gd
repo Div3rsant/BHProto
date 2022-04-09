@@ -39,7 +39,7 @@ func fire_bullets():
 				break
 	
 	if bullet:
-		bullet.set_active(self.global_position)
+		bullet.set_active(self.global_position, "inactive")
 		bullet.set_velocity(fire_vel)
 		$fire_rate.start()
 	

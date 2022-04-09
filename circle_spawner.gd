@@ -63,7 +63,7 @@ func spawn_bullets():
 		for i in range(numOfSpawns):
 			get_tree().root.get_child(0).add_child(bullets[i])
 			bullets[i].set_direction(spawn_points[i]["direction"])
-			bullets[i].set_active(spawn_points[i]["pos"])
+			bullets[i].set_active(spawn_points[i]["pos"], "destroyed")
 			bullets[i].set_mask("player")
 		$fire_rate.start()
 		# kind of innefficient/weird

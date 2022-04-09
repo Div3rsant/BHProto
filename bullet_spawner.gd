@@ -37,7 +37,7 @@ func spawn_bullets():
 		print("fired")
 		get_tree().root.get_child(0).add_child(bullet)
 		bullet.set_direction(Vector2(0, 1))
-		bullet.set_active(self.global_position)
+		bullet.set_active(self.global_position, "destroyed")
 		$fire_rate.start()
 
 func _on_fire_rate_timeout():
